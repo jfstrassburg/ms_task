@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.api_java.ms_task.model.Tarefa;
+import com.api_java.ms_task.model.exception.ResourcerNotFoundException;
 
 @Repository
 public class TarefaRepository {
@@ -68,7 +69,7 @@ public class TarefaRepository {
         Optional<Tarefa> tarefaEncontrado = obterPorId(tarefa.getId());
 
         if(tarefaEncontrado.isEmpty()) {
-            throw new RuntimeException("Tarefa não encontrada.");
+            throw new ResourcerNotFoundException("Tarefa não encontrada.");
         }
          
         deletar(tarefa.getId());

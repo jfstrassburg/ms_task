@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +33,8 @@ public class TarefaController {
     @Autowired
     private TarefaService tarefaService;
 
+    
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<TarefaResponse>> obterTodos() {
         List<TarefaDTO> tarefa = tarefaService.obterTodos();
@@ -40,21 +44,22 @@ public class TarefaController {
         List<TarefaResponse> resposta = tarefa.stream()
         .map(tarefaDto -> mapper.map(tarefaDto, TarefaResponse.class))
         .collect(Collectors.toList());
-                
+            
         return new ResponseEntity<>(resposta, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Optional<TarefaResponse>> obterPorId(@PathVariable Integer id) {
         
         Optional<TarefaDTO> dto = tarefaService.obterPorId(id);
 
-        TarefaResponse tarefa = new ModelMapper().map(dto.get(), TarefaResponse.class);
+        TarefaResponse tarefa = new ModelMapper().map(dto.get(),TarefaResponse.class);
 
         return new ResponseEntity<>(Optional.of(tarefa), HttpStatus.OK);
 
     }
-    
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TarefaResponse> adicionar(@RequestBody TarefaRequest tarefaReq) {
         ModelMapper mapper = new ModelMapper();
@@ -66,6 +71,7 @@ public class TarefaController {
         return new ResponseEntity<>(mapper.map(tarefaDto, TarefaResponse.class), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id) {
         

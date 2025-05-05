@@ -1,27 +1,7 @@
-package com.api_java.ms_task.model;
+package com.api_java.ms_task.view.model;
 
-import jakarta.persistence.*;
-
-/* 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-
-@Getter
-@Setter
-@Table(name = "tarefas")
-@AllArgsConstructor 
-*/
-
-@Entity
-public class Tarefa {
-
-    //#region Atributos
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
+public class TarefaRequest {
+        
     private String nome;   
     
     private String descricao;
@@ -38,19 +18,7 @@ public class Tarefa {
     
     private String prioridade;
 
-    //#endregion
-
-    //#region Construtores
- 
-//Caso nao queira usar o Lombok, descomente o código abaixo e comente o Lombok acima
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+   
     public String getNome() {
         return nome;
     }
@@ -115,5 +83,4 @@ public class Tarefa {
         this.prioridade = prioridade;
     }
 
-    //#endregion
 }

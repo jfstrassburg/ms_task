@@ -34,7 +34,7 @@ public class TarefaController {
     private TarefaService tarefaService;
 
     
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<List<TarefaResponse>> obterTodos() {
         List<TarefaDTO> tarefa = tarefaService.obterTodos();
@@ -49,7 +49,7 @@ public class TarefaController {
     }
     
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     public ResponseEntity<Optional<TarefaResponse>> obterPorId(@PathVariable Integer id) {
         
         Optional<TarefaDTO> dto = tarefaService.obterPorId(id);
@@ -59,7 +59,7 @@ public class TarefaController {
         return new ResponseEntity<>(Optional.of(tarefa), HttpStatus.OK);
 
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TarefaResponse> adicionar(@RequestBody TarefaRequest tarefaReq) {
         ModelMapper mapper = new ModelMapper();
@@ -71,7 +71,7 @@ public class TarefaController {
         return new ResponseEntity<>(mapper.map(tarefaDto, TarefaResponse.class), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Integer id) {
         
@@ -79,7 +79,7 @@ public class TarefaController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    //@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<TarefaResponse> atualizar(@PathVariable Integer id, @RequestBody TarefaRequest tarefaReq) {
         

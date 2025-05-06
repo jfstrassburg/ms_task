@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api_java.ms_task.service.SingletonService;
 
 @RestController
-public class ExampleController {
+public class SingletonController {
 
     @Autowired
     private SingletonService singletonService;
